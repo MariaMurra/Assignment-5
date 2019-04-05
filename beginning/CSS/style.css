@@ -1,0 +1,12 @@
+body {
+    font-family: helvetica, sans-serif;
+    text-transform: uppercase;
+}
+#firstSteps button {
+    background-color:whitesmoke;
+    color: navy;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 5px;
+    border: 2px solid navy;
+}
