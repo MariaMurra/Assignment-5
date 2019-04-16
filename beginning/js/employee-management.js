@@ -1,30 +1,49 @@
 /*eslint-env browser*/
-var employees = [
-    {"name": "John", "title": "Snake Milker", "Extension": 121},
-    {"name": "Jacob", "title": "Lab Rat", "Extension": 122},
-    {"name": "Jinker", "title": "Animal Colourist", "Extension": 123},
-    {"name": "Heimer", "title": "Master Handshaker", "Extension": 124},
-    {"name": "Smith", "title": "Chocolate Taster", "Extension": 125}],
-    numberOfEmployees = employees.length,
-    i,
+var employee1 = [], employee2 = [], employee3 = [], employee4 = [], employee5 = [],
+    employees = [employee1, employee2, employee3, employee4, employee5],
+    i,  numberOfEmployees = employees.length,
     $ = function (id) {
         "use strict";
         return window.document.getElementById(id);
     };
 
-window.console.log(employees);
+employee1.name = "John";
+employee1.title = "Snake Milker";
+employee1.extension = 121;
+
+employee2.name = "Jacob";
+employee2.title = "Lab Rat";
+employee2.extension = 122;
+
+employee3.name = "Jinker";
+employee3.title = "Animal Colourist";
+employee3.extension = 123;
+
+employee4.name = "Heimer";
+employee4.title = "Master Handshaker";
+employee4.extension = 124;
+
+employee5.name = "Smith";
+employee5.title = "Chocolate Taster";
+employee5.extension = 125;
+
+    
+/*window.console.log(employees);*/
 
 window.document.write("<h1> The Employee Management Application </h1>");
 window.document.write("<h3> Add Employee</h3>");
 
-function addEmployeeForm() {
+
+//FORM 
+
+function form() {
     "use strict";
     var myForm = window.document.createElement("FORM"),
         frmInputName = window.document.createElement("INPUT"),
         frmInputTitle = window.document.createElement("INPUT"),
         frmInputExt = window.document.createElement("INPUT"),
-        frmInputButton = window.document.createElement("INPUT"),
-        frmError = window.document.createElement("P");
+        frmInputButton = window.document.createElement("INPUT");
+        
             
     
     //SETTING THE FORM ON THE BODY
@@ -40,7 +59,7 @@ function addEmployeeForm() {
     //TITLE INPUT
     frmInputTitle.setAttribute("type", "text");
     frmInputTitle.setAttribute("value", "Enter Title");
-    frmInputTitle.setAttribute("id", "neETitle");
+    frmInputTitle.setAttribute("id", "newETitle");
     window.document.getElementById("addEmployeeForm").appendChild(frmInputTitle);
     
     //EXTENSION INPUT
@@ -54,24 +73,11 @@ function addEmployeeForm() {
     frmInputButton.setAttribute("value", "add");
     frmInputButton.setAttribute("id", "addButton");
     window.document.getElementById("addEmployeeForm").appendChild(frmInputButton);
-    
-    //ERROR PARAGRAPH
-    frmError.setAttribute("id", "thErrorMsg");
-    window.document.getElementById("addEmployeeForm").appendChild(frmError);
 }
-addEmployeeForm();
 
-window.document.write("<h3> Showing " + numberOfEmployees + " Employees </h3>");
+form();
 
-///BUILDING THE TABLE------------->
-window.document.write("<table>");
-
-window.document.write("<tr><th> Name </th> <th>Title</th><th>Extension</th> </tr>");
-for (i = 0; i < employees.length; i += 1) {
-    window.document.write("<tr><td>" + employees[i].name + "</td> <td>" + employees[i].title + "</td><td>" + employees[i].Extension + "</td><td></td><td><button>Delete</button></td></tr>");
-}
-window.document.write("</table>");
-
+//ADD AN EMPLOYEE
 
 function addEmployee() {
     "use strict";
@@ -79,28 +85,69 @@ function addEmployee() {
         valTitle = $("newETitle"),
         valExtension = $("newExtension"),
         newEmployee,
-        button = $("addButton");
+        button = $("addButton"),
+        msg = window.document.createElement("p");
+    
+    msg.setAttribute("id", "msgError");
+    msg.style.color = "red";
     
     //BUTTON FUNCTIONALITY
     button.addEventListener("click", function () {
         valName = $("newEName").value;
         valTitle = $("newETitle").value;
         valExtension = $("newExtension").value;
-        newEmployee = {"name": valName, "title": valTitle, "Extension": valExtension};
-        employees.push(newEmployee);
+        newEmployee = [];
+        newEmployee.name = valName;
+        newEmployee.title = valTitle;
+        newEmployee.extension = valExtension;
         
+        if (valName === "Enter Name") {
+            msg.innerHTML = "Please make sure you write a valid name";
+            window.document.getElementById("addEmployeeForm").appendChild(msg);
+        } else if (valTitle === "Enter Title") {
+            msg.innerHTML = "Please make sure you write a valid title";
+            window.document.getElementById("addEmployeeForm").appendChild(msg);
+        } else if (valExtension === "Enter Extension") {
+            msg.innerHTML = "Please make sure you write a valid extension";
+            window.document.getElementById("addEmployeeForm").appendChild(msg);
+        } else {
+            employees.push(newEmployee);
+        }
     });
 }
 addEmployee();
 
-/*function EmployeeDelete() {
+// TO POPULATE TABLE
+function populateTable() {
     "use strict";
-    
+    for (i = 0; i < employees.length; i += 1) {
+        window.document.write("<tr><td>" + employees[i].name + "</td> <td>" + employees[i].title + "</td><td>" + employees[i].extension + "</td><td></td><td><button id=\"delete\">Delete</button></td></tr>");
+    }
 }
 
-EmployeeDelete();*/
+window.document.write("<h3> Showing " + numberOfEmployees + " Employees </h3>");
+
+///BUILDING THE TABLE------------->
+window.document.write("<table>");
+
+window.document.write("<tr><th> Name </th> <th>Title</th><th>Extension</th> </tr>");
+populateTable();
+window.document.write("</table>");
+
+function EmployeeDelete() {
+    "use strict";
+    $("delete").addEventListener("click", function () {
+        window.console.log("try");
+    
+    });
+}
+
+EmployeeDelete();
 
 
+window.addEventListener("load", function () {
+    "use strict";
+});
 
 
 
